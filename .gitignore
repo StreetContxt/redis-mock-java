@@ -1,4 +1,22 @@
 *.class
+*.log
+settings.xml
+target/
+
+### Intellij ###
+/workspace.xml
+.idea
+.idea_modules/
+out/
+*.iws
+*.iml
+
+### Sonar ###
+.sonar/
+.scannerwork/
+
+### Mac ###
+.DS_Store
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -13,6 +31,3 @@ hs_err_pid*
 
 # Emacs auto-generate files
 *~
-
-# Ignore settings.xml
-settings.xml

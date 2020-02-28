@@ -2,13 +2,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   
-  <groupId>org.rarefiedredis.redis</groupId>
-  <artifactId>redis-java</artifactId>
-  <version>0.0.17</version>
+  <groupId>com.streetcontxt</groupId>
+  <artifactId>redis-mock</artifactId>
+  <version>LOCAL-SNAPSHOT</version>
   <packaging>jar</packaging>
   
-  <name>redis-java</name>
-  <description>An in-memory redis-compatible implementation written in pure Java</description>
+  <name>redis-mock</name>
+  <description>(Rarefied Redis fork) An in-memory Redis mock</description>
   <url>http://maven.apache.org</url>
 
   <licenses>
@@ -19,32 +19,6 @@
     </license>
   </licenses>
 
-  <scm>
-    <connection>scm:git:git@github.com:wilkenstein/redis-mock-java.git</connection>
-    <developerConnection>scm:git:git@github.com:wilkenstein/redis-mock-java.git</developerConnection>
-    <url>https://github.com/wilkenstein/redis-mock-java</url>
-  </scm>
-
-  <developers>
-    <developer>
-      <name>Brian Wilke</name>
-      <email>wilke.brian@gmail.com</email>
-      <organization>Rarefied Redis</organization>
-      <organizationUrl>http://rarefiedredis.org</organizationUrl>
-    </developer>
-  </developers>
-
-  <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-    <repository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-  </distributionManagement>
-  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -81,6 +55,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.3.2</version>
         <configuration>
+          <source>6</source>
+          <target>6</target>
         </configuration>
       </plugin>
       
@@ -154,38 +130,6 @@
     </plugins>
   </build>
 
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <version>3.0.0</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.14</version>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jdepend-maven-plugin</artifactId>
-        <version>2.0</version>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>taglist-maven-plugin</artifactId>
-        <version>2.4</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.10.2</version>
-        <configuration>
-          <sourcepath>./src/main/java/org/rarefiedredis/redis/</sourcepath>
-        </configuration>
-      </plugin>
-    </plugins>
-  </reporting>
 
   <profiles>
     <profile>
@@ -202,50 +146,6 @@
                 <id>attach-sources</id>
                 <goals>
                   <goal>jar-no-fork</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>2.10.2</version>
-            <configuration>
-              <sourcepath>./src/main/java/org/rarefiedredis/redis/</sourcepath>
-            </configuration>
-            <executions>
-              <execution>
-                <id>attach-javadocs</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-
-          <plugin>
-            <groupId>org.sonatype.plugins</groupId>
-            <artifactId>nexus-staging-maven-plugin</artifactId>
-            <version>1.6.3</version>
-            <extensions>true</extensions>
-            <configuration>
-              <serverId>ossrh</serverId>
-              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-              <autoReleaseAfterClose>true</autoReleaseAfterClose>
-            </configuration>
-          </plugin>
-          
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.5</version>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <phase>verify</phase>
-                <goals>
-                  <goal>sign</goal>
                 </goals>
               </execution>
             </executions>
