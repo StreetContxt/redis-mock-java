@@ -19,6 +19,14 @@
     </license>
   </licenses>
 
+  <distributionManagement>
+    <repository>
+      <id>bintray-streetcontxt-maven</id>
+      <name>streetcontxt-maven</name>
+      <url>https://api.bintray.com/maven/streetcontxt/maven/redis-mock-java/;publish=1</url>
+    </repository>
+  </distributionManagement>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
