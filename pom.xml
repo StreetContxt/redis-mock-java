@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
   
   <groupId>com.streetcontxt</groupId>
-  <artifactId>redis-mock</artifactId>
+  <artifactId>redis-mock-java</artifactId>
   <version>LOCAL-SNAPSHOT</version>
   <packaging>jar</packaging>
   
-  <name>redis-mock</name>
+  <name>redis-mock-java</name>
   <description>(Rarefied Redis fork) An in-memory Redis mock</description>
   <url>http://maven.apache.org</url>
 
