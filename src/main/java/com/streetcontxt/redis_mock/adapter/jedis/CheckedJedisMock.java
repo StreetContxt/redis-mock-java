@@ -18,7 +18,7 @@ import redis.clients.jedis.Jedis;
 
 /**
  * Creates a mock Jedis for use in unit tests, which checks if invoked methods have actually been mocked.
- *
+ * <p>
  * Because Jedis (and its superclass BinaryJedis) have a very large number of methods, and there's no interface
  * for them, missing methods in Jedis mocks are a frequent problem. These normally throw difficult-to-interpret
  * errors (e.g. "connection refused") when a superclass method is invoked. To solve this, the mock Jedis object
@@ -27,12 +27,11 @@ import redis.clients.jedis.Jedis;
  */
 public class CheckedJedisMock {
 
-    // Redis/Jedis mock library
     private RedisMock redisMock = new RedisMock();
     private JedisAdapter jedisAdapter = new JedisAdapter(redisMock);
 
     // Use Mockito to create a Jedis object that captures method calls, and either passes them to the mock if they're
-    // implemented, or throws an informative error if they' a're not implemented.
+    // implemented, or throws an exception if they're not implemented.
     private Jedis mockJedis = Mockito.mock(Jedis.class, new JedisMockAnswer());
 
     public CheckedJedisMock() {
@@ -66,10 +65,11 @@ public class CheckedJedisMock {
 
     /**
      * Tries to invoke a method on a Jedis mock.
-     * <p>
      *
-     *
+     * @param invocation
+     * @param jedisMock
      * @return Result of invoking the mock's method
+     * @throws Throwable Any exception thrown by the original method
      */
     private static Object invokeOnJedisMock(final InvocationOnMock invocation, final Object jedisMock)
             throws Throwable {
@@ -90,8 +90,8 @@ public class CheckedJedisMock {
             if (method.getParameterCount() > 0 && arguments.length > 0) {
                 Class lastParamType = method.getParameterTypes()[method.getParameterCount() - 1];
 
-                //There are only two types of vararg parameters used by Jedis: int... and String...
-                //(This would need to be updated if they added other vararg types in the future)
+                // There are only two types of vararg parameters used by Jedis: int... and String...
+                // (This would need to be updated if they added other vararg types in the future)
                 if (lastParamType.equals(Integer[].class) || lastParamType.equals(String[].class)) {
                     // Convert all the additional parameters from the invocation into an array for the varags method
                     int numMethodParams = method.getParameterCount();
@@ -106,9 +106,10 @@ public class CheckedJedisMock {
             try {
                 return method.invoke(jedisMock, arguments);
             } catch (IllegalArgumentException e) {
-                //params don't match, try another method
+                // Params don't match, try another method
             } catch (InvocationTargetException e) {
-                throw e.getCause(); //Invoked method is throwing an exception - pass the original exception along
+                // Invoked method threw an exception - pass the original exception along
+                throw e.getCause();
             }
         }
 
